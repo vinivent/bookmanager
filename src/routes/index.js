@@ -6,7 +6,6 @@ import BookList from "../pages/BookList";
 
 function RoutesApp() {
   const [books, setBooks] = useState([]);
-  const [selectedBookIndex, setSelectedBookIndex] = useState(null);
 
   const handleDelete = (index) => {
     const updatedBooks = [...books];
@@ -14,9 +13,6 @@ function RoutesApp() {
     setBooks(updatedBooks);
   };
 
-  const handleEdit = (index) => {
-    setSelectedBookIndex(index);
-  };
   return (
     <Routes>
       <Route path="/" element={<Home />} />
@@ -26,9 +22,7 @@ function RoutesApp() {
       />
       <Route
         path="/booklist"
-        element={
-          <BookList books={books} onDelete={handleDelete} onEdit={handleEdit} />
-        }
+        element={<BookList books={books} onDelete={handleDelete} />}
       />
     </Routes>
   );

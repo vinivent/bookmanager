@@ -2,15 +2,10 @@ import "./BookList.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-const BookList = ({ books, onDelete, onEdit }) => {
+const BookList = ({ books, onDelete }) => {
   const navigate = useNavigate();
   const handleDelete = (index) => {
     onDelete(index);
-  };
-
-  const handleEdit = (index) => {
-    onEdit(index);
-    navigate("/addbooks"); 
   };
 
   return (
@@ -20,11 +15,16 @@ const BookList = ({ books, onDelete, onEdit }) => {
         {books.map((book, index) => (
           <div className="book-card" key={index}>
             <p>Livro {index + 1}</p>
+            <img src={book.bookLink} alt="Book Image" className="bookImage" />
             <h3>{book.title}</h3>
             <p>Autor: {book.author}</p>
             <div className="button-container">
-              <button className="delete-button" onClick={() => handleDelete(index)}>Deletar</button>
-              <button className="edit-button" onClick={() => handleEdit(index)}>Editar</button>
+              <button
+                className="delete-button"
+                onClick={() => handleDelete(index)}
+              >
+                Deletar
+              </button>
             </div>
           </div>
         ))}

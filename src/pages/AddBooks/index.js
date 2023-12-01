@@ -4,12 +4,13 @@ import "./Books.css";
 
 const AddBooks = ({ books, setBooks }) => {
   const [newBook, setNewBook] = useState({
+    bookLink: "",
     title: "",
     author: "",
   });
   const [editIndex, setEditIndex] = useState(null);
   const addBook = () => {
-    if (newBook.title === "" || newBook.author === "") {
+    if (newBook.title === "" || newBook.author === "" || newBook.bookLink) {
       alert("Ops, você deixou algum campo vazio.");
       return;
     }
@@ -36,6 +37,15 @@ const AddBooks = ({ books, setBooks }) => {
     <div className="books-container">
       <div className="add-book-form">
         <h3>{editIndex !== null ? "Editar Livro" : "Adicionar Novo Livro"}</h3>
+
+        <input
+          className="todo-input"
+          placeholder="Link do Livro"
+          type="text"
+          required
+          value={newBook.bookLink}
+          onChange={(e) => setNewBook({ ...newBook, bookLink: e.target.value })}
+        />
 
         <input
           className="todo-input"
