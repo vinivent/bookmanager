@@ -40,7 +40,7 @@ const AddBooks = ({ books, setBooks }) => {
 
         <input
           className="todo-input"
-          placeholder="Link do Livro"
+          placeholder="Link da Imagem do Livro"
           type="text"
           required
           value={newBook.bookLink}
