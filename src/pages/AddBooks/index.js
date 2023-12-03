@@ -8,35 +8,38 @@ const AddBooks = ({ books, setBooks }) => {
     title: "",
     author: "",
   });
-  const [editIndex, setEditIndex] = useState(null);
-  const addBook = () => {
-    if (newBook.title === "" || newBook.author === "" || newBook.bookLink) {
-      alert("Ops, você deixou algum campo vazio.");
-      return;
-    }
-    if (editIndex !== null) {
-      const updatedBooks = [...books];
-      updatedBooks[editIndex] = newBook;
-      setBooks(updatedBooks);
-      setEditIndex(null);
-    } else {
-      setBooks([...books, newBook]);
-    }
-    setNewBook({ title: "", author: "" });
+
+
+  const isValidLink = (url) => {
+    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+    return urlRegex.test(url);
   };
 
   useEffect(() => {
-    if (editIndex !== null) {
-      setNewBook(books[editIndex]);
-    } else {
-      setNewBook({ title: "", author: "" });
+    if (newBook.bookLink !== "" && !isValidLink(newBook.bookLink)) {
+      alert("Ops, o link não é válido.");
+      setNewBook({ bookLink: "" });
     }
-  }, [editIndex, books]);
+  }, [newBook.bookLink]);
+
+  const addBook = () => {
+    if (
+      newBook.title === "" ||
+      newBook.author === "" ||
+      newBook.bookLink === ""
+    ) {
+      alert("Ops, você deixou algum campo vazio.");
+      return;
+    }
+
+    setBooks([...books, newBook]);
+    setNewBook({ title: "", author: "", bookLink: "" });
+  };
 
   return (
     <div className="books-container">
       <div className="add-book-form">
-        <h3>{editIndex !== null ? "Editar Livro" : "Adicionar Novo Livro"}</h3>
+        <h3>Adicionar Novo Livro</h3>
 
         <input
           className="todo-input"
@@ -66,9 +69,7 @@ const AddBooks = ({ books, setBooks }) => {
         />
 
         <div className="button-div">
-          <button onClick={addBook}>
-            {editIndex !== null ? "Editar Livro" : "Adicionar Livro"}
-          </button>
+          <button onClick={addBook}>Adicionar Livro</button>
           <Link className="button-2" to="/booklist">
             Ver Livros
           </Link>
