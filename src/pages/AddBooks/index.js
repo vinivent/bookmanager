@@ -9,7 +9,6 @@ const AddBooks = ({ books, setBooks }) => {
     author: "",
   });
 
-
   const isValidLink = (url) => {
     const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
     return urlRegex.test(url);
@@ -17,7 +16,7 @@ const AddBooks = ({ books, setBooks }) => {
 
   useEffect(() => {
     if (newBook.bookLink !== "" && !isValidLink(newBook.bookLink)) {
-      alert("Ops, o link não é válido.");
+      alert("Ops, o link não é válido. Use Ctrl C + Ctrl V");
       setNewBook({ bookLink: "" });
     }
   }, [newBook.bookLink]);
